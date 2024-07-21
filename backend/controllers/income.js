@@ -44,3 +44,14 @@ exports.getIncomes = async (req, res) =>{
   }
 }
 
+//Remover Receita
+exports.deleteIncome = async (req, res) =>{
+  const { id } = req.params;
+  incomeSchema.findByIdAndDelete(id)
+    .then((income) => {
+      res.status(200).json({message: 'Income Deleted'})
+    })
+    .catch((err)=>{
+      res.status(500).json({message: 'Server Error'})
+    })
+}
