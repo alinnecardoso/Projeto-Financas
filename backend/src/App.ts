@@ -21,9 +21,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Criação do Servidor
-const server = (): void => {
-  db();
-  app.listen(PORT, () => {
+const server: () => void = (): void => {
+  db;
+  app.listen(PORT, (): void => {
     console.log(`listening to port: ${PORT}`);
   });
 };
