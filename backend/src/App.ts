@@ -4,6 +4,7 @@ import db  from './db/db';
 import { readdirSync } from 'fs';
 import dotenv from 'dotenv';
 
+
 dotenv.config();
 
 const app: express.Application = express();
