@@ -1,5 +1,0 @@
-{
-  "watch": ["src/**/*", "routes/**"],
-  "ext": "ts",
-  "exec": "npx ts-node"
-}
