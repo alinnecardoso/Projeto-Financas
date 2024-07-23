@@ -48,3 +48,16 @@ exports.deleteIncome = async (req, res) =>{
             res.status(500).json({message: 'Server Error'})
         })
 }
+// Editar Receita
+exports.updateIncome = async (req, res) => {
+    const { id } = req.params;
+    const { body } = req; // atualizar com o corpo da solicitação
+  
+    try {
+      const incomeAtualizado = await IncomeSchema.findByIdAndUpdate(id, body, { new: true });
+      res.status(200).json({ mensagem: 'Income Updated' });
+    } catch (err) {
+      console.error(err); // logar o erro para fins de depuração
+      res.status(500).json({ mensagem: 'Server Error' });
+    }
+};
