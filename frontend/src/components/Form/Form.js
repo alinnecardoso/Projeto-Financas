@@ -8,7 +8,7 @@ import Button from '../Button/Button';
 
 
 function Form() {
-  const {addIncome} = useGlobalContext()
+  const {addIncome, getIncomes} = useGlobalContext()
 
 
   const [inputState, setInputState] = useState({
@@ -28,6 +28,7 @@ function Form() {
   const handleSubmit = e => {
     e.preventDefault()
     addIncome(inputState)
+    getIncomes()
   }
   return (
     <FormStyled onSubmit={handleSubmit}>

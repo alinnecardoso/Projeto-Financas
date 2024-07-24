@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import avatar from '../../img/Avatar.png'
 import { menuItems } from '../../utils/menuItems';
 import { signout } from '../../utils/Icons';
