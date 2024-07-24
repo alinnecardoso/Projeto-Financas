@@ -1,14 +1,16 @@
+import React, { useState } from 'react'
 import Navigation from './components/Navigation/Navigation';
 import Orb from './components/Orb/Orb';
 import { Mainlayout } from './styles/Layout';
 import styled from 'styled-components';
 
 function App() {
+  const [ active, setActive ] = React.useState(1)
   return (
     <AppStyled className="App">
-      <Orb/>
+      <Orb />
       <Mainlayout>
-        <Navigation/>
+        <Navigation active={active} setActive={setActive} />
       </Mainlayout>
     </AppStyled>
   );

@@ -4,8 +4,7 @@ import { menuItems } from '../../utils/menuItems';
 import { signout } from '../../utils/Icons';
 import styled from 'styled-components';
 
-function Navigation() {
-  const [ active, setActive ] = useState(0)
+function Navigation(active, setActive) {
   return (
     <NavStyled>
       <div className="user-con">
@@ -23,6 +22,8 @@ function Navigation() {
             return <li
               // Atribuir uma chave única para cada item (usando o id do item)
               key={item.id}
+              onClick={()=> setActive(item.id)}
+              className={active === item.id ? 'active' : ''} //Se active for igual a item.id, então a expressão avalia para 'active', 
             >
               {item.icon}
               <span>{item.title}</span>
@@ -102,6 +103,22 @@ const NavStyled = styled.nav`
         transition: all .4s ease-in-out;
       }
     }
+  }
+  .active{
+    color: rgba(34,34,96,1);
+    i{
+        color: rgba(34,34,96,1);
+      }
+      &::before{
+        content:'';
+        position:absolute;
+        left:0;
+        top:0;
+        width:4px;
+        height:100%;
+        background: #222260;
+        border-radius: 0 10px 10px 0;
+      }
   }
 `;
 
