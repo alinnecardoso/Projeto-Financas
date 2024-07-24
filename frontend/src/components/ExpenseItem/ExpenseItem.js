@@ -1,10 +1,10 @@
 import React from 'react'
 import { bitcoin, book, calender, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, trash, tv, users, yt } from '../../utils/Icons';
-import Button from '../Button/Button';
 import styled from 'styled-components';
+import Button from '../Button/Button';
 import { dateFormat } from '../../utils/DateFormat';
 
-function IncomeItem({
+function ExpenseItem({
   id,
   title,
   amount,
@@ -39,10 +39,31 @@ function IncomeItem({
     }
   }
 
+  const expenseCatIcon = () =>{
+    switch(category){
+      case 'education':
+        return book;
+      case 'groceries':
+        return food;
+      case 'health':
+        return medical;
+      case 'subscriptions':
+        return tv;
+      case 'clothing':
+        return clothing;
+      case 'travelling':
+        return freelance;
+      case 'other':
+        return circle;
+      default:
+        return '';
+    }
+  }
+
   return (
-    <IncomeItemStyled indicator={indicatorColor}>
+    <ExpenseItemStyled indicator={indicatorColor}>
       <div className="icon">
-        {categoryIcon()}
+        {expenseCatIcon()}
       </div>
       <div className="content">
         <h5>{title}</h5>
@@ -70,11 +91,11 @@ function IncomeItem({
           </div>
         </div>
       </div>
-    </IncomeItemStyled>
+    </ExpenseItemStyled>
   )
 }
 
-const IncomeItemStyled = styled.div`
+const ExpenseItemStyled = styled.div`
   background: #FCF6F9;
   border: 2px solid #FFF;
   box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
@@ -142,4 +163,4 @@ const IncomeItemStyled = styled.div`
   }
 `;
 
-export default IncomeItem
+export default ExpenseItem

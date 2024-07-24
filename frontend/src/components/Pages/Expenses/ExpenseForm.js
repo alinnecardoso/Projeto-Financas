@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useGlobalContext } from '../../context/GlobalContext';
-import { plus } from '../../utils/Icons';
-import Button from '../Button/Button';
+import { useGlobalContext } from '../../../context/GlobalContext';
+import Button from '../../Button/Button';
+import { plus } from '../../../utils/Icons';
 
 
-function Form() {
-  const {addIncome, getIncomes} = useGlobalContext()
+function ExpenseForm() {
+  const {addExpense, getExpense} = useGlobalContext()
 
 
   const [inputState, setInputState] = useState({
@@ -27,7 +27,7 @@ function Form() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    addIncome(inputState)
+    addExpense(inputState)
     setInputState({
       title: '',
       amount: '',
@@ -37,26 +37,26 @@ function Form() {
     })
   }
   return (
-    <FormStyled onSubmit={handleSubmit}>
+    <ForExpenseFormStyled onSubmit={handleSubmit}>
       <div className="input-control">
         <input 
+          required
           type="text" 
           value={title}
           name={'title'}
           placeholder='Título'
           onChange={handleInput('title')}
-          required
         />
       </div>
 
       <div className="input-control">
-        <input 
+        <input
+          required 
           type="Number" 
           value={amount}
           name={'amount'}
           placeholder='R$ 0,00'
           onChange={handleInput('amount')}
-          required
         />
       </div>
 
@@ -74,26 +74,25 @@ function Form() {
       </div>
 
       <div className="selects input-control">
-          <select required value={category} name="category" id="category" onChange={handleInput('category')}>
-            <option value="" disabled>Selecione uma opção</option>
-            <option value="salary">Salário</option>
-            <option value="freelancing">Freelancing</option>
-            <option value="investments">Investimentos</option>
-            <option value="stocks">Estoques</option>
-            <option value="bitcoin">Bitcoin</option>
-            <option value="bank">Banco</option>
-            <option value="youtube">Youtube</option>
-            <option value="other">Outro</option>
-          </select>
-      </div>
+                <select required value={category} name="category" id="category" onChange={handleInput('category')}>
+                    <option value="" disabled >Selecione uma opção</option>
+                    <option value="education">Educação</option>
+                    <option value="groceries">Mercado</option>
+                    <option value="health">Saúde</option>
+                    <option value="subscriptions">Assinaturas</option>
+                    <option value="clothing">Roupas</option>  
+                    <option value="travelling">Viajem</option>  
+                    <option value="other">Outro</option>  
+                </select>
+            </div>
 
       <div className="input-control">
-        <textarea required name="description" value={description} placeholder='Insira a Descrição' cols='30' rows='4' id="description" onChange={handleInput('description')}></textarea>
+        <textarea name="description" value={description} placeholder='Insira a Descrição' cols='30' rows='4' id="description" onChange={handleInput('description')}></textarea>
       </div>
 
       <div className="submit-btn">
         <Button 
-          name={'Add Income'}
+          name={'Add Expense'}
           icon={plus}
           bPad={'.8rem 1.6rem'}
           bRad={'30px'}
@@ -101,11 +100,11 @@ function Form() {
           color={'#fff'}
         />
       </div>
-    </FormStyled>
+    </ForExpenseFormStyled>
   )
 }
 
-const FormStyled = styled.form`
+const ForExpenseFormStyled = styled.form`
   display:flex;
   flex-direction:column;
   gap: 2rem;
@@ -152,4 +151,4 @@ const FormStyled = styled.form`
     }
 `
 
-export default Form
+export default ExpenseForm
