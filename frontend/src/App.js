@@ -1,3 +1,4 @@
+import Navigation from './components/Navigation/Navigation';
 import Orb from './components/Orb/Orb';
 import { Mainlayout } from './styles/Layout';
 import styled from 'styled-components';
@@ -7,9 +8,7 @@ function App() {
     <AppStyled className="App">
       <Orb/>
       <Mainlayout>
-        <h1>
-          Hello
-        </h1>
+        <Navigation/>
       </Mainlayout>
     </AppStyled>
   );
