@@ -4,12 +4,12 @@ import { menuItems } from '../../utils/menuItems';
 import { signout } from '../../utils/Icons';
 import styled from 'styled-components';
 
-function Navigation(active, setActive) {
+function Navigation({active, setActive}) {
   return (
     <NavStyled>
       <div className="user-con">
         <div className='img-name'>
-          <img src={avatar} alt="" />
+          <img src={avatar} alt="Avatar" />
           <div className="text">
             <h2>Gabriel</h2>
             <p>Seu dinheiro</p>
@@ -53,7 +53,7 @@ const NavStyled = styled.nav`
   gap: 2rem;
 
   .user-con{
-    height:85vh;
+    height:100%;
     display:flex;
     flex-direction: column;
     justify-content:flex-start;
@@ -105,9 +105,9 @@ const NavStyled = styled.nav`
     }
   }
   .active{
-    color: rgba(34,34,96,1);
+    color: rgba(34,34,96,1) !important;
     i{
-        color: rgba(34,34,96,1);
+        color: rgba(34,34,96,1)!important;
       }
       &::before{
         content:'';
