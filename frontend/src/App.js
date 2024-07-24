@@ -6,9 +6,13 @@ import styled from 'styled-components';
 import Dashboard from './components/Pages/Dashboard/Dashboard';
 import Incomes from './components/Pages/Incomes/Incomes';
 import Expenses from './components/Pages/Expenses/Expenses';
+import { useGlobalContext } from './context/GlobalContext';
 
 function App() {
   const [ active, setActive ] = useState(1)
+
+  const global = useGlobalContext();
+  console.log(global)
 
   const displayData = () => {
     switch(active){
