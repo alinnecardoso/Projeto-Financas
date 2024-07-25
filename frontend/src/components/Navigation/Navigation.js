@@ -120,6 +120,7 @@ const NavStyled = styled.nav`
         border-radius: 0 10px 10px 0;
       }
   }
+  
 `;
 
 export default Navigation
