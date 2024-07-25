@@ -24,12 +24,7 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         maxLength: 50,
     },
-    dataNasc: {
-      type: Date,
-      required: false,
-      trim: true,
-      maxLength: 100,
-  },
+    
 }, {timestamps: true})
 
 module.exports = mongoose.model('User', UserSchema);

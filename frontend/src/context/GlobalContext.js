@@ -9,6 +9,7 @@ export const GlobalProvider = ({children}) =>{
 
   const [incomes, setIncome] = useState([])
   const [expenses, setExpenses] = useState([])
+  const [users, setUser] = useState([])
   const [error, setError] = useState(null) 
 
 
@@ -39,7 +40,7 @@ export const GlobalProvider = ({children}) =>{
 
     return totalIncome;
   }
-  console.log(totalIncome())
+  //console.log(totalIncome())
 
   //Expenses
   const addExpense = async(expense) =>{
@@ -68,7 +69,7 @@ export const GlobalProvider = ({children}) =>{
 
     return totalExpenses;
   }
-  console.log(totalExpenses());
+  //console.log(totalExpenses());
 
   const totalBalance = () =>{
     return totalIncome() - totalExpenses()
@@ -81,6 +82,44 @@ export const GlobalProvider = ({children}) =>{
     })
 
     return history.slice(0,3)
+  }
+
+  //Usuários
+  const addUser = async(users) =>{
+    const response = await axios.post(`${BASE_URL}register/add-user`, users)
+    
+          .catch((err) =>{
+            setError(err.response.data.message)
+          })
+
+          console.log(getUser());
+  }
+  const getUser = async() =>{
+    const response = await axios.get(`${BASE_URL}get-users`)
+    setUser(response.data);
+  }
+
+  const checkUserExists = async (email, senha) => {
+    const response = await axios.post(`${BASE_URL}register/add-user`, {email, senha} )
+    .catch((err) =>{
+      setError(err)
+    })
+    console.log(response.data);
+  }
+
+  const getUserById = async(id) =>{
+    const response = await axios.get(`${BASE_URL}login/get-user/${id}`)
+    setUser(response.data);
+  }
+
+  const deleteUser = async (id) =>{
+    const res = await axios.delete(`${BASE_URL}delete-user/${id}`)
+    getUser();
+  }
+
+  const updateUser = async (id) =>{
+    const res = await axios.put(`${BASE_URL}update-user/${id}`)
+    getUser();
   }
 
   return (
@@ -97,7 +136,12 @@ export const GlobalProvider = ({children}) =>{
     totalExpenses,
     totalBalance,
     transactionHistory,
+    addUser,
+    getUser,
+    getUserById,
+    checkUserExists,
     setError,
+    deleteUser,
     error
   }} >
     {children}

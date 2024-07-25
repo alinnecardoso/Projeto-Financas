@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import  { Routes, Route } from 'react-router-dom';
 import Register from './components/Pages/Register/Register';
 import Login from './components/Pages/Login/Login';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:800';
+axios.defaults.withCredentials = true;
 
 function App() {
 
