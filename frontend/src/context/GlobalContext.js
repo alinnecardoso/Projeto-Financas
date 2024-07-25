@@ -66,9 +66,9 @@ export const GlobalProvider = ({children}) =>{
       totalExpenses = totalExpenses + expense.amount;
     })
 
-    return totalExpenses
+    return totalExpenses;
   }
-  console.log(totalExpenses())
+  console.log(totalExpenses());
 
 
   return (
@@ -82,7 +82,8 @@ export const GlobalProvider = ({children}) =>{
     getExpenses,
     expenses,
     deleteExpense,
-    totalExpenses
+    totalExpenses,
+    error
   }} >
     {children}
   </GlobalContext.Provider>
