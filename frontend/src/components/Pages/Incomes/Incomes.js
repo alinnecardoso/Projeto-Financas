@@ -13,8 +13,8 @@ function Incomes() {
   return (
       <IncomesStyled>
           <InnerLayout>
-              <h1>Incomes</h1>
-              <h2 className="total-income">Total Income: <span>${totalIncome()}</span></h2>
+              <h1>Receita</h1>
+              <h2 className="total-income">Total de Receita: <span>${totalIncome()}</span></h2>
               <div className="income-content">
                   <div className="form-container">
                       <Form />

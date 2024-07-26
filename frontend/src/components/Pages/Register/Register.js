@@ -1,49 +1,15 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
 import Button from '../../Button/Button';
-import { useGlobalContext } from '../../../context/GlobalContext';
 import { Link } from 'react-router-dom';
 
 
 //{nome, foto, email, senha}
 
 function Register() {
-  
-  const {addUser, getUser, error, setError} = useGlobalContext()
-
-  const [inputState, setInputState] = useState({
-    nome: '',
-    foto: '',
-    email: '',
-    senha: '',
-  })
-
-  const { nome, foto, email, senha } = inputState;
-
-  const handleInput = name => e => {
-    setInputState({...inputState, [name]: e.target.value})
-    setError('')
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    try {
-      addUser(inputState)
-      setInputState({
-        nome: '',
-        foto: '',
-        email: '',
-        senha: '',
-      })
-    } catch (error) {
-      console.log(error)
-    }
-    
-    
-  }
 
   return (
-    <RegisterStyled onSubmit={handleSubmit}>
+    <RegisterStyled>
       <h1>Cadastrar</h1>
       <form className='form-control'>
 
@@ -51,10 +17,10 @@ function Register() {
 
           <label>Nome</label>
           <input 
-          value={nome}
+          
           type="text" 
           placeholder='Insira seu nome'
-          onChange={handleInput('nome')}
+          
           required
            />
         </div>
@@ -62,10 +28,9 @@ function Register() {
         <div className='label-input'>
           <label>Foto</label>
           <input 
-          value={foto}
           type="url"
           placeholder='Insira url da foto'
-          onChange={handleInput('foto')}
+          
           required
           />
         </div>
@@ -73,10 +38,10 @@ function Register() {
         <div className='label-input'>
           <label>Email</label>
           <input 
-          value={email}
+          
           type="email" 
           placeholder='Insira seu email' 
-          onChange={handleInput('email')}
+          
           required
           />
         </div>
@@ -84,10 +49,10 @@ function Register() {
         <div className='label-input'>
           <label>Senha</label>
           <input 
-          value={senha}
+          
           type="password" 
           placeholder='Insira sua senha' 
-          onChange={handleInput('senha')}
+          
           required
           />
         </div>

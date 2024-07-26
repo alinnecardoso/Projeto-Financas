@@ -1,50 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios';
-import { useGlobalContext } from '../../../context/GlobalContext';
+import { Link } from 'react-router-dom'
 
 const BASE_URL = 'http://localhost:8123/'; 
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { setUser } = useGlobalContext();
-  const [data, setData] = useState({
-    email: '',
-    senha:'',
-  })
-
-  const loginUser = async () => {
-      const { email, senha } = data
-      try {
-        const data = await axios.post(`${BASE_URL}login`, {
-          email,
-          senha,
-        });
-        setUser(data.user);
-        if(data.error){
-          console.log(data.error)
-        }else{
-          
-          setData({});
-          navigate('/');
-        }
-      } catch (error) {
-        console.log(error)
-      }
-  }
 
   return (
-    <LoginStyled onSubmit={loginUser}>
+    <LoginStyled>
       <h1>Login</h1>
       <form id='login-form' className='form-control'>
         <div className='label-input'>
           <label>Email</label>
           <input
-            value={data.email}
+            
             type="email"
             placeholder='Insira seu email'
-            onChange={(e) => setData({...data, email: e.target.value})}
+            
             required
           />
         </div>
@@ -52,10 +24,10 @@ const Login = () => {
         <div className='label-input'>
           <label>Senha</label>
           <input
-            value={data.senha}
+            
             type="password"
             placeholder='Insira sua senha'
-            onChange={(e) => setData({...data, senha: e.target.value})}
+            
             required
           />
         </div>
