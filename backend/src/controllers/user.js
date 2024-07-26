@@ -73,7 +73,7 @@ exports.loginUser = async(req, res) => {
         const {email, senha} = req.body;
 
         //Checar se o usuário existe
-        const user = await UserSchema.findOne(email);
+        const user = await UserSchema.findOne({email:email});
 
         if(!user) {
             return res.json({

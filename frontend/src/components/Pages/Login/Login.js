@@ -13,11 +13,10 @@ const Login = () => {
     senha:'',
   })
 
-  const loginUser = async (e) => {
-    e.preventDefault()
+  const loginUser = async () => {
       const { email, senha } = data
       try {
-        const {data} = await axios.post('login', {
+        const data = await axios.post('login', {
           email,
           senha,
         });
@@ -35,7 +34,7 @@ const Login = () => {
   return (
     <LoginStyled onSubmit={loginUser}>
       <h1>Login</h1>
-      <form className='form-control'>
+      <form id='login-form' className='form-control'>
         <div className='label-input'>
           <label>Email</label>
           <input
