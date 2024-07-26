@@ -11,7 +11,7 @@ const Register = () =>{
     senha:'',
   })
 
-const [error, setError] = useState('')
+const [error, setError] = useState()
 const navigate = useNavigate();
 
 const handleChange = ({currentTarget:input}) =>{
@@ -171,6 +171,15 @@ const RegisterStyled = styled.div`
       color: white;
       margin: 10px;
 
+    }
+
+    .error-msg{
+      padding:1%;
+      font-size: 14px;
+      background-color: #f34646;
+      color: #fff;
+      border-radius: 5px;
+      text-align: center;
     }
 `
 
