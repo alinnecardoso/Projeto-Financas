@@ -5,6 +5,13 @@ import { signout } from '../../utils/Icons';
 import styled from 'styled-components';
 
 function Navigation({active, setActive}) {
+
+
+  const handleLogout = () =>{
+    localStorage.removeItem("token");
+    window.location.reload();
+  }
+
   return (
     <NavStyled>
       <div className="user-con">
@@ -32,7 +39,9 @@ function Navigation({active, setActive}) {
         </ul>
         <div className="bottom-nav">
           <li>
-            {signout} Sing Out
+            <button className='btn-signout' onClick={handleLogout}>
+              {signout} Sing Out
+            </button>
           </li>
         </div>
       </div>
@@ -119,6 +128,22 @@ const NavStyled = styled.nav`
         background: #222260;
         border-radius: 0 10px 10px 0;
       }
+  }
+      
+  .btn-signout{
+    border: none;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    &:hover{
+      color: var(--primary-color);
+    }
   }
   
 `;

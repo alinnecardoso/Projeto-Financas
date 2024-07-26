@@ -21,7 +21,7 @@ const handleChange = ({currentTarget:input}) =>{
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const url = 'http://localhost:8123/users';
+    const url = 'http://localhost:8123/users/';
     const {data:res} = await axios.post(url,data);
     navigate("/login")
     console.log(res.message);
@@ -39,7 +39,7 @@ const handleSubmit = async (e) => {
           <h1>Bem-Vindo</h1>
           <Link to='/login'>
             <button type="button" className="btn-white">
-              Sign in
+              Log In
             </button>
           </Link>
         </div>

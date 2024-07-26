@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Register = () =>{
+const Login = () =>{
   const [data, setData] = useState({
     email:'',
     senha:'',
@@ -18,7 +18,7 @@ const handleChange = ({currentTarget:input}) =>{
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const url = 'http://localhost:8123/auth';
+    const url = 'http://localhost:8123/auth/';
     const {data:res} = await axios.post(url,data);
     localStorage.setItem('token', res.data);
     window.location = '/'
