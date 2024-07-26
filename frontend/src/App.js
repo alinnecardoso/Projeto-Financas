@@ -2,9 +2,8 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './components/Pages/Home/Home'
 import styled from 'styled-components';
 import  { Routes, Route } from 'react-router-dom';
-import Register from './components/Pages/Register/Register';
-import Login from './components/Pages/Login/Login';
 import axios from 'axios';
+import Register from './components/Pages/Register/Register';
 
 axios.defaults.baseURL = 'http://localhost:8123';
 axios.defaults.withCredentials = true;
@@ -18,7 +17,6 @@ function App() {
       <Routes>
         <Route  path='/' element={<Home />} />
         <Route  path='/register' element={<Register />} />
-        <Route  path='/login' element={<Login />} />
       </Routes>
     </AppStyled>
   );
