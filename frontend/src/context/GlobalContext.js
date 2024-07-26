@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:8000/";
+const BASE_URL = "http://localhost:8123/";
 
 const GlobalContext = React.createContext();
 
@@ -17,7 +17,7 @@ export const GlobalProvider = ({children}) =>{
   const addIncome = async(income) =>{
     const response = await axios.post(`${BASE_URL}add-income`, income)
           .catch((err) =>{
-            setError(err.response.data.message)
+            setError(err)
           })
 
           getIncomes();
@@ -46,7 +46,7 @@ export const GlobalProvider = ({children}) =>{
   const addExpense = async(expense) =>{
     const response = await axios.post(`${BASE_URL}add-expense`, expense)
           .catch((err) =>{
-            setError(err.response.data.message)
+            setError(err)
           })
 
           getExpenses();
@@ -85,32 +85,23 @@ export const GlobalProvider = ({children}) =>{
   }
 
   //Usuários
-  const addUser = async(users) =>{
-    const response = await axios.post(`${BASE_URL}register/add-user`, users)
-    
+  const addUser = async(user) =>{
+    const response = await axios.post(`${BASE_URL}register/add-user`, user)
+
           .catch((err) =>{
-            setError(err.response.data.message)
+            setError(err)
           })
 
-          console.log(getUser());
   }
   const getUser = async() =>{
-    const response = await axios.get(`${BASE_URL}get-users`)
+    const response = await axios.get(`${BASE_URL}users`)
     setUser(response.data);
+    console.log(response.data)
+    
   }
 
-  const checkUserExists = async (email, senha) => {
-    const response = await axios.post(`${BASE_URL}register/add-user`, {email, senha} )
-    .catch((err) =>{
-      setError(err)
-    })
-    console.log(response.data);
-  }
+  
 
-  const getUserById = async(id) =>{
-    const response = await axios.get(`${BASE_URL}login/get-user/${id}`)
-    setUser(response.data);
-  }
 
   const deleteUser = async (id) =>{
     const res = await axios.delete(`${BASE_URL}delete-user/${id}`)
@@ -138,8 +129,6 @@ export const GlobalProvider = ({children}) =>{
     transactionHistory,
     addUser,
     getUser,
-    getUserById,
-    checkUserExists,
     setError,
     deleteUser,
     error

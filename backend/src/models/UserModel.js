@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxLength: 50,
+        minLength: 8,
     },
     
 }, {timestamps: true})

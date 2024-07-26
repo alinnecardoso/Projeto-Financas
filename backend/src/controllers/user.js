@@ -1,29 +1,38 @@
+const { findOne } = require("../models/ExpenseModel");
 const UserSchema= require("../models/UserModel")
-
+const { hashPassword, comparePassword } = require('./helpers/auth')
 
 exports.addUser = async (req, res) => {
     const {nome, foto, email, senha}  = req.body;
 
-    const user = new UserSchema({
-        nome,
-        foto,
-        email,
-        senha,
-    })
-
-    try {
-        //validations
-        if(!nome || !foto || !email || !senha){
-            console.log(user);
-            return res.status(400).json({message: 'All fields are required!'})
+    //validations
+    if(!nome || !foto || !email || !senha){
+        console.log(user);
+        return res.status(400).json({message: 'All fields are required!'})
+    }
+    try{
+        const exist = await UserSchema.findOne({email});
+        if(exist){
+            return res.json({
+                message: 'Email is taken Already'
+            })
         }
-        await user.save()
-        res.status(200).json({message: 'User Added'})
+
+        const hashedPassword = await hashPassword(senha);
+
+        const user = new UserSchema({
+            nome,
+            foto,
+            email,
+            senha: hashedPassword,
+        })
+            await user.save()
+            res.status(200).json({message: 'User Added'})
     } catch (error) {
         res.status(500).json({message: 'Server Error'})
+        console.log(error);
     }
 
-    console.log(user)
 }
 
 exports.getUsers = async (req, res) =>{
@@ -46,20 +55,6 @@ exports.deleteUser = async (req, res) =>{
         })
 }
 
-exports.checkUserExists = async (req, res) =>{
-    const { email, senha } = req.body;
-    User.findOne({ email }, (err, user) => {
-        if (err) {
-        res.status(400).send({ message: 'Erro ao verificar usuário' });
-        } else if (user && user.senha === senha) {
-        res.send({ exists: true });
-        console.log(`email: ${email} e senha:${senha} existem!`)
-        } else {
-        res.send({ exists: false });
-        console.log(`email: ${email} e senha:${senha} NÃO existem!`)
-        }
-    });
-}
 
 exports.updateUser = async (req, res) =>{
     const {id} = req.params;
@@ -72,3 +67,26 @@ exports.updateUser = async (req, res) =>{
         res.status(500).json({ mensagem: 'Server Error' });
       }
 }
+
+exports.loginUser = async(req, res) => {
+    try {
+        const {email, senha} = req.body;
+
+        //Checar se o usuário existe
+        const user = await UserSchema.findOne(email);
+
+        if(!user) {
+            return res.json({
+                error: 'No user found'
+            })
+        }
+        //Checar se a senha está correta
+        const senhaMatch = await comparePassword(senha, user.senha)
+        if(senhaMatch){
+            res.json('Password Match')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+

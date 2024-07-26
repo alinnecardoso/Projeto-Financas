@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 //{nome, foto, email, senha}
 
 function Register() {
-  const {addUser, error, setError} = useGlobalContext()
+  
+  const {addUser, getUser, error, setError} = useGlobalContext()
 
   const [inputState, setInputState] = useState({
     nome: '',
@@ -26,13 +27,19 @@ function Register() {
 
   const handleSubmit = e => {
     e.preventDefault()
-    addUser(inputState)
-    setInputState({
-      nome: '',
-      foto: '',
-      email: '',
-      senha: '',
-    })
+    try {
+      addUser(inputState)
+      setInputState({
+        nome: '',
+        foto: '',
+        email: '',
+        senha: '',
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    
+    
   }
 
   return (

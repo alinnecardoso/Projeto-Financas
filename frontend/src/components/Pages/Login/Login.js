@@ -1,64 +1,71 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useGlobalContext } from '../../../context/GlobalContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../Button/Button'
+import axios from 'axios';
 
-function Login() {
-  const { checkUserExists, error, setError } = useGlobalContext();
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [usuarioExiste, setUsuarioExiste] = useState(false);
+const BASE_URL = 'http://localhost:8123/'; 
 
-  const verificarUsuario = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await checkUserExists(email, senha);
-      if (response.exists) {
-        setUsuarioExiste(true);
-      } else {
-        setUsuarioExiste(false);
+const Login = () => {
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    email: '',
+    senha:'',
+  })
+
+  const loginUser = async (e) => {
+    e.preventDefault()
+      const { email, senha } = data
+      try {
+        const {data} = await axios.post('login', {
+          email,
+          senha,
+        });
+        if(data.error){
+          console.log(data.error)
+        }else{
+          setData({});
+          navigate('/');
+        }
+      } catch (error) {
+        console.log(error)
       }
-    } catch (err) {
-      setError(err);
-    }
-  };
+  }
 
   return (
-    <LoginStyled>
+    <LoginStyled onSubmit={loginUser}>
       <h1>Login</h1>
-      <form className='form-control' onSubmit={verificarUsuario} >
-        
-
+      <form className='form-control'>
         <div className='label-input'>
           <label>Email</label>
-          <input 
-          value={email}
-          type="email" 
-          placeholder='Insira seu email' 
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          <input
+            value={data.email}
+            type="email"
+            placeholder='Insira seu email'
+            onChange={(e) => setData({...data, email: e.target.value})}
+            required
           />
         </div>
 
         <div className='label-input'>
           <label>Senha</label>
-          <input 
-          value={senha}
-          type="password" 
-          placeholder='Insira sua senha' 
-          onChange={(e) => setSenha(e.target.value)}
-          required
+          <input
+            value={data.senha}
+            type="password"
+            placeholder='Insira sua senha'
+            onChange={(e) => setData({...data, senha: e.target.value})}
+            required
           />
         </div>
 
         <div className='submit-btn'>
           <Button
-          name={'Fazer Login'}
-          bPad={'.8rem 1.6rem'}
-          bRad={'30px'}
-          bg={'var(--color-accent)'}
-          color={'#fff'}
+            type="submit"
+            name={'Fazer Login'}
+            bPad={'.8rem 1.6rem'}
+            bRad={'30px'}
+            bg={'var(--color-accent)'}
+            color={'#fff'}
           />
         </div>
 
@@ -68,11 +75,10 @@ function Login() {
           </button>
         </div>
 
-        
       </form>
     </LoginStyled>
-  )
-}
+  );
+};
 
 const LoginStyled = styled.div`
   height: 100vh;
