@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Link, useNavigate } from 'react-router-dom'
-import Button from '../../Button/Button'
 import axios from 'axios';
+import { useGlobalContext } from '../../../context/GlobalContext';
 
 const BASE_URL = 'http://localhost:8123/'; 
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser } = useGlobalContext();
   const [data, setData] = useState({
     email: '',
     senha:'',
@@ -16,13 +17,15 @@ const Login = () => {
   const loginUser = async () => {
       const { email, senha } = data
       try {
-        const data = await axios.post('login', {
+        const data = await axios.post(`${BASE_URL}login`, {
           email,
           senha,
         });
+        setUser(data.user);
         if(data.error){
           console.log(data.error)
         }else{
+          
           setData({});
           navigate('/');
         }
@@ -58,14 +61,7 @@ const Login = () => {
         </div>
 
         <div className='submit-btn'>
-          <Button
-            type="submit"
-            name={'Fazer Login'}
-            bPad={'.8rem 1.6rem'}
-            bRad={'30px'}
-            bg={'var(--color-accent)'}
-            color={'#fff'}
-          />
+          <button type='submit'>Fazer login</button>
         </div>
 
         <div className='login-btn'>
@@ -134,14 +130,27 @@ const LoginStyled = styled.div`
   }
   .submit-btn{
       button{
+        background: var(--color-accent);
+        padding: 0.8rem 1.6rem;
+        border-radius: 30px;
         min-width: 300px;
         width: 60%;
         margin: 0 auto;
         justify-content: center;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
+        outline: none;
+        border: none;
+        font-family: inherit;
+        font-size: inherit;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        cursor: pointer;
+        color: #fff;
+        transition: all .4s ease-in-out;
         &:hover{
-          background: var(--color-green) !important;
-        }
+            background: var(--color-green) !important;
+          }
         
     }
   }
