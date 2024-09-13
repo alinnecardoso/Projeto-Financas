@@ -1,2 +1,2 @@
-# Mind-Group
-Sistema de controle de finanças pessoais
+# Sistema de controle de finanças pessoais
+(Não finalizado)
